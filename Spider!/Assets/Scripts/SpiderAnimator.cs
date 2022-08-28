@@ -10,24 +10,55 @@ public class SpiderAnimator : MonoBehaviour
     public GameObject head;
 
     public float maxAngle;
-    public float speedLeg;
-    public float speed;
+    public float speedLeg; //recommended : 100
 
     private bool isGroup1Up;
+    private Spider spider;
 
     void Start()
     {
         isGroup1Up = false;
+        spider = gameObject.GetComponent<Spider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Walk();
-        transform.Translate(Vector3.right* Time.deltaTime * speed);
+        if (spider.isWalking)
+        {
+            WalkAnimation();
+
+            //Todo  : get the position at the bottom of the foot and make sure this point is at y=0 by tranlate up/down spider while walking
+            //transform.Translate(Vector3.up * -FindOffsetWithFloor(0));
+        }
     }
 
-    public void Walk()
+    public float FindOffsetWithFloor(float groundPosition)
+    {
+        float offset = 0;
+        float currentOffset = 0;
+        List<GameObject> allLegs = new List<GameObject>();
+        allLegs.AddRange(legGroup1);
+        allLegs.AddRange(legGroup2);
+
+        for(int i=0; i<allLegs.Count; ++i)
+        {
+            Transform tarsusTransf = allLegs[i].transform.Find("Tarsus");
+            Vector3 tarsusWorldPos = tarsusTransf.localToWorldMatrix * tarsusTransf.position;
+            currentOffset = tarsusWorldPos.y - groundPosition;
+
+            Debug.Log(allLegs[i].transform.parent.name+"/"+allLegs[i].name+" world pos :"+tarsusWorldPos+" current offset : "+ (-currentOffset));
+
+            if(i==0 || currentOffset< offset)
+            {
+                offset = currentOffset;
+            }
+        }
+
+        return offset;
+    }
+
+    public void WalkAnimation()
     {
         List<GameObject> upGroup, downGroup;
         if (isGroup1Up)
@@ -56,7 +87,7 @@ public class SpiderAnimator : MonoBehaviour
             float xEulerAngle180 = Mathf.Repeat(upGroup[i].transform.localEulerAngles.x + 180, 360) - 180;
             if (!hadBenUpdated && (xEulerAngle180<=-maxAngle))
             {
-                Debug.Log("CHANGE " + upGroup[i].transform.parent.name + "/" + upGroup[i].name + " " + upGroup[i].transform.localEulerAngles.x+" "+ xEulerAngle180);
+                //Debug.Log("CHANGE " + upGroup[i].transform.parent.name + "/" + upGroup[i].name + " " + upGroup[i].transform.localEulerAngles.x+" "+ xEulerAngle180);
                 isGroup1Up = !isGroup1Up;
                 hadBenUpdated = true;
             }
