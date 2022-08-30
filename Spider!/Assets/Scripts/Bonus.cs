@@ -16,6 +16,7 @@ public class Bonus : MonoBehaviour
     //Bonus mechanic members
     public TypeBonus typeBonus;
     public float value;
+    public float duration;
 
     private Vector3 initialPos;
     private Vector3 initialScale;

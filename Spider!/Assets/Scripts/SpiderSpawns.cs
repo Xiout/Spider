@@ -12,7 +12,6 @@ public class SpiderSpawns : MonoBehaviour
     private GameObject player;
     private bool isCooldownElapsed;
 
-    // Start is called before the first frame update
     void Start()
     {
         numberSpiders = 0;
@@ -20,7 +19,6 @@ public class SpiderSpawns : MonoBehaviour
         SpawnSpider();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(isCooldownElapsed && numberSpiders < numberSpidersMax)
@@ -45,7 +43,6 @@ public class SpiderSpawns : MonoBehaviour
 
         Vector3 positionSpider = new Vector3(activeSpawnTrans.position.x, 0.5f, activeSpawnTrans.position.z);
         GameObject newSpider = Instantiate(spiderPrefab, positionSpider, Quaternion.FromToRotation(Vector3.right, player.transform.position - positionSpider));
-        newSpider.AddComponent(new Controller)
 
         numberSpiders++;
         isCooldownElapsed = false;

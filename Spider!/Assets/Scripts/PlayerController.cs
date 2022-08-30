@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerRb.AddForce(new Vector3(Input.GetAxis("Vertical") * Time.deltaTime * speed, 0, -Input.GetAxis("Horizontal") * Time.deltaTime * speed));
+        playerRb.AddForce(new Vector3(Input.GetAxis("Vertical") * Time.deltaTime * (speed + speedBoosts.Sum()), 0, -Input.GetAxis("Horizontal") * Time.deltaTime * speed));
 
         Vector3 deltaPosition = gameObject.transform.position - previousPosition;
         cameraParent.transform.Translate(deltaPosition.x, 0, deltaPosition.z);
@@ -38,9 +39,16 @@ public class PlayerController : MonoBehaviour
             if(bonus.typeBonus == TypeBonus.SpeedBonus)
             {
                 speedBoosts.Add(bonus.value);
+                StartCoroutine(BonusRoutine(speedBoosts.Count-1, bonus.duration));
             }
 
             GameObject.Destroy(other.gameObject);
         }
+    }
+
+    IEnumerator BonusRoutine(int indexBonus, float duration_s)
+    {
+        yield return new WaitForSeconds(duration_s);
+        speedBoosts.RemoveAt(indexBonus);
     }
 }
