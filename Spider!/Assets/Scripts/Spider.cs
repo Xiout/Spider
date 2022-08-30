@@ -27,8 +27,8 @@ public class Spider : MonoBehaviour
             Vector3 playerPosition = player.transform.position;
             Vector3 spiderParentPosition = transform.position;
             Vector3 spiderParentRotation = transform.eulerAngles;
-            Vector3 spiderHeadPosition = transform.Find("Head").position;
-            Vector3 spiderBodyPosition = transform.Find("Body").position;
+            Vector3 spiderHeadPosition = transform.Find("Spider_Mesh").Find("Head").position;
+            Vector3 spiderBodyPosition = transform.Find("Spider_Mesh").Find("Body").position;
 
             bool hasMove = false;
 
@@ -63,24 +63,24 @@ public class Spider : MonoBehaviour
             //transform.SetPositionAndRotation(transform.position, quaternionFromTo);
             //transform.SetPositionAndRotation(transform.position, Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(vectorToPlayer), Time.deltaTime * rotationSpeed));
 
-            Debug.Log(
-                $"Start playerPosition : {playerPosition} \n" +
-                $"Start SpiderParentPosition : {spiderParentPosition} \n" +
-                $"Start spiderHeadPosition : {spiderHeadPosition} \n" +
-                $"Start spiderBodyPosition : {spiderBodyPosition} \n" +
-                $"Start spiderParentRotation : {spiderParentRotation} \n" +
-                $"vectorToPlayer : {vectorToPlayer} \n" +
-                $"vectorBodyToHead : {vectorBodyToHead} \n" +
-                $"angleToPlayer : {angleToPlayer}° \n" +
-                $"eulerRotation : {eulerRotationSpider} \n" +
-                //$"lookRotation :{Quaternion.LookRotation(vectorToPlayer).eulerAngles} \n" +
-                $"hasMove : {hasMove} \n" +
-                $"End playerPosition : {player.transform.position} \n" +
-                $"End SpiderParentPosition : {transform.position} \n" +
-                $"End spiderHeadPosition : {transform.Find("Head").position} \n" +
-                $"End spiderBodyPosition : {transform.Find("Body").position} \n" +
-                $"End spiderParentRotation : {transform.rotation} \n" +
-                "");
+            //Debug.Log(
+            //    $"Start playerPosition : {playerPosition} \n" +
+            //    $"Start SpiderParentPosition : {spiderParentPosition} \n" +
+            //    $"Start spiderHeadPosition : {spiderHeadPosition} \n" +
+            //    $"Start spiderBodyPosition : {spiderBodyPosition} \n" +
+            //    $"Start spiderParentRotation : {spiderParentRotation} \n" +
+            //    $"vectorToPlayer : {vectorToPlayer} \n" +
+            //    $"vectorBodyToHead : {vectorBodyToHead} \n" +
+            //    $"angleToPlayer : {angleToPlayer}° \n" +
+            //    $"eulerRotation : {eulerRotationSpider} \n" +
+            //    //$"lookRotation :{Quaternion.LookRotation(vectorToPlayer).eulerAngles} \n" +
+            //    $"hasMove : {hasMove} \n" +
+            //    $"End playerPosition : {player.transform.position} \n" +
+            //    $"End SpiderParentPosition : {transform.position} \n" +
+            //    $"End spiderHeadPosition : {transform.Find("Head").position} \n" +
+            //    $"End spiderBodyPosition : {transform.Find("Body").position} \n" +
+            //    $"End spiderParentRotation : {transform.rotation} \n" +
+            //    "");
             
         }
     }

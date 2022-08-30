@@ -44,7 +44,8 @@ public class SpiderSpawns : MonoBehaviour
         }
 
         Vector3 positionSpider = new Vector3(activeSpawnTrans.position.x, 0.5f, activeSpawnTrans.position.z);
-        Instantiate(spiderPrefab, positionSpider, Quaternion.FromToRotation(Vector3.right, player.transform.position - positionSpider));
+        GameObject newSpider = Instantiate(spiderPrefab, positionSpider, Quaternion.FromToRotation(Vector3.right, player.transform.position - positionSpider));
+        newSpider.AddComponent(new Controller)
 
         numberSpiders++;
         isCooldownElapsed = false;
